@@ -25,6 +25,7 @@ object TaxiCount {
     //读取105号车
         val input: RDD[String] = sc.textFile("./Taxi_*")
 
+    input.foreach(it=>println(it))
     //计算数据记录数量
     val n = input.count()
     println(n)
