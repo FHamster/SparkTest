@@ -1,4 +1,4 @@
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{DataFrame, SparkSession,SQLContext}
 import com.databricks.spark.xml
 
 object Test1 {
@@ -14,14 +14,9 @@ object Test1 {
       .getOrCreate()
 
 
-
     //    val df = spark.read.format("com.databricks.spark.xml").option("rowTag", "article").load("file:///root/dblp.xml")
     //    val df = spark.read.format("com.databricks.spark.xml").option("rootTag", "dblp").option("rowTag", "article").load("file:///root/dblp.xml")
-    val df = spark.read
-      .format("com.databricks.spark.xml")
-      .option("rootTag", "dblp")
-      .option("rowTag", "article")
-      .load("file:///root/article.xml")
+    val df = spark.read.format("com.databricks.spark.xml").option("rootTag", "dblp").option("rowTag", "www").load("file:///root/dblp.xml")
 
     df.select("_corrupt_record").foreach(row => println(row))
     //          .load("dblp.xml")
