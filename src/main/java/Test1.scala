@@ -16,6 +16,7 @@ object Test1 {
 
     //    val df = spark.read.format("com.databricks.spark.xml").option("rowTag", "article").load("file:///root/dblp.xml")
     //    val df = spark.read.format("com.databricks.spark.xml").option("rootTag", "dblp").option("rowTag", "article").load("file:///root/dblp.xml")
+//    val df = spark.read.format("com.databricks.spark.xml").option("rootTag", "dblp").option("rowTag", "www").load("file:///root/dblp_after.xml")
     val df = spark.read.format("com.databricks.spark.xml").option("rootTag", "dblp").option("rowTag", "www").load("file:///root/dblp.xml")
 
     df.select("_corrupt_record").foreach(row => println(row))
