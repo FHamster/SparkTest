@@ -13,8 +13,6 @@ object Test3 {
       .builder
       .appName("XML_Test")
       .master("local[8]")
-      //      .config("driver-memory", "4096M")
-      .config("spark.executor.memory", "4G")
       .getOrCreate()
 
 
