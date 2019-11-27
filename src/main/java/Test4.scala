@@ -1,6 +1,10 @@
 import org.apache.spark.sql.SparkSession
 
 object Test4 {
+  val s1 = "file:///root/text"
+  val s2 = "file:////Users/gaoxin/WorkSpace/spark/article.xml"
+  val s3 = "file:////Users/gaoxin/WorkSpace/spark/article_after.xml"
+
   def main(args: Array[String]): Unit = {
     val spark = SparkSession
       .builder
@@ -11,12 +15,15 @@ object Test4 {
     val subNode = Array("article")
 
 
-    val df = spark.read
-      .text("file:///root/text")
+    //读取
+    val file = spark.sparkContext.textFile(s2)
 
-    df.foreach(row => println(row)
-    )
+    //转换实体
+    val afterParse = file.map(s => ReplaceEntity.parse(s)).cache()
+
+    afterParse.foreach(it => println(it))
 
 
+    afterParse.saveAsTextFile(s3)
   }
 }
