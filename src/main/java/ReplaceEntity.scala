@@ -71,7 +71,10 @@ object ReplaceEntity {
       case "&yacute;" => "&#253;"
       case "&thorn;" => "&#254;"
       case "&yuml;" => "&#255;"
-
+      case _ => {
+        println(it)
+        it.toString()
+      }
     })
 
     optS

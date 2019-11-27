@@ -1,9 +1,10 @@
 import org.apache.spark.sql.SparkSession
-
+import java.io.File
 object Test4 {
-  val s1 = "file:///root/text"
-  val s2 = "file:////Users/gaoxin/WorkSpace/spark/article.xml"
-  val s3 = "file:////Users/gaoxin/WorkSpace/spark/article_after.xml"
+  val s1 = "file:///root/dblp.xml"
+  val s2 = "file:///root/dblp_after.xml"
+  val s3 = "file:////Users/gaoxin/WorkSpace/spark/article.xml"
+  val s4 = "file:////Users/gaoxin/WorkSpace/spark/article_after.xml"
 
   def main(args: Array[String]): Unit = {
     val spark = SparkSession
@@ -16,14 +17,19 @@ object Test4 {
 
 
     //读取
-    val file = spark.sparkContext.textFile(s2)
+    val file = spark.sparkContext.textFile(s1)
 
     //转换实体
-    val afterParse = file.map(s => ReplaceEntity.parse(s)).cache()
+    val afterParse = file.map(s => ReplaceEntity.parse(s))//.cache()
 
-    afterParse.foreach(it => println(it))
+    //afterParse.foreach(it => println(it))
 
+    val afterParedblp: File = new File(s2)
 
-    afterParse.saveAsTextFile(s3)
+   if (afterParedblp.isFile) {
+     println("delete "+ afterParedblp.delete())
+   }
+
+    afterParse.saveAsTextFile(s2)
   }
 }
